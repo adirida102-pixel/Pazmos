@@ -8,6 +8,8 @@ c=<input type="number" @bind-value="c" />
 <br />
 <button @onclick="Draw">Draw</button>
 <br />
+<button @onclick="Clear">Clear</button>
+<br />
 
 <svg width="600" height="800" style="background-color:palegoldenrod">
     @((MarkupString)data)
@@ -33,12 +35,28 @@ c=<input type="number" @bind-value="c" />
     {
         Parabola par = new Parabola(a, b, c);
         Point[] pArr = par.GetPoints();
-        string[] colors = { "crimson", "deeppink", "coral", "gold", "darkkhaki", "lavender", "thistle", "magenta", "rebeccapurple", "slateblue", "limegreen", "forestgreen", "teal", "darkcyan", "turquoise", "deepskyblue", "midnightblue", "wheat", "chocolate", "charcoal" };
+        string[] colors = { "aliceblue", "crimson", "darkgreen", "darkorchid", "firebrick", "forestgreen", "gold", "hotpink", "indianred", "lavender", "limegreen", "magenta", "maroon", "midnightblue", "navy", "olive", "orange", "orangered", "orchid", "peru", "pink", "plum", "purple", "red", "royalblue", "saddlebrown", "salmon", "seagreen", "sienna", "silver", "slateblue", "slategray", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen", "darkcyan", "darkgoldenrod", "darkmagenta", "darksalmon" };
         Random rnd = new Random();
         int rColor = rnd.Next(0, colors.Length);
         for (int i = 0; i < pArr.Length; i++)
         {
-            data += $@"<circle cx=""{(pArr[i].GetX() + 10) * 30}"" cy=""{(-pArr[i].GetY() + 10) * 40}"" r=""1"" fill=""{colors[rColor]}"" />";
+            if (pArr[i].GetY() >= -10 && pArr[i].GetY() <= 10)
+            {
+                if (pArr[i].GetX() == 0 || pArr[i].GetY() >= -0.01 && pArr[i].GetY() <= 0.01)
+                {
+                    data += $@"<circle cx=""{(pArr[i].GetX() + 10) * 30}"" cy=""{(-pArr[i].GetY() + 10) * 40}"" r=""5"" fill=""{colors[rColor]}"" />";
+                }
+                else
+                {
+                    data += $@"<circle cx=""{(pArr[i].GetX() + 10) * 30}"" cy=""{(-pArr[i].GetY() + 10) * 40}"" r=""1"" fill=""{colors[rColor]}"" />";
+                }
+            }
         }
+    }
+
+    void Clear()
+    {
+        data = "";
+        OnInitialized();
     }
 }
