@@ -42,7 +42,7 @@ c=<input type="number" @bind-value="c" />
         {
             if (pArr[i].GetY() >= -10 && pArr[i].GetY() <= 10)
             {
-                if (pArr[i].GetX() == 0 || pArr[i].GetY() >= -0.01 && pArr[i].GetY() <= 0.01)
+                if (pArr[i].GetX() == 0 || pArr[i].GetY() == 0)
                 {
                     data += $@"<circle cx=""{(pArr[i].GetX() + 10) * 30}"" cy=""{(-pArr[i].GetY() + 10) * 40}"" r=""5"" fill=""{colors[rColor]}"" />";
                 }

@@ -201,18 +201,18 @@ namespace Pazmos
 
         public Point[] GetPoints()
         {
-            Point[] points = new Point[4000];
+            Point[] points = new Point[8000];
             double x = 0, y = 0;
-            for (int i = 0; i < 4000; i++)
+            for (int i = 0; i < 8000; i++)
             {
                 points[i] = new Point();
             }
-            for (int i = -2000; i < 2000; i++)
+            for (int i = -4000; i < 4000; i++)
             {
-                x = (double)i / 200;
-                points[i + 2000].SetX(x);
+                x = (double)i / 400;
+                points[i + 4000].SetX(x);
                 y = this.GetY(x);
-                points[i + 2000].SetY(y);
+                points[i + 4000].SetY(y);
             }
             return points;
         }
