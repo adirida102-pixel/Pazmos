@@ -1,0 +1,44 @@
+﻿@page "/"
+
+a=<input type="number" @bind-value="a" />
+<br />
+b=<input type="number" @bind-value="b" />
+<br />
+c=<input type="number" @bind-value="c" />
+<br />
+<button @onclick="Draw">Draw</button>
+<br />
+
+<svg width="600" height="800" style="background-color:palegoldenrod">
+    @((MarkupString)data)
+</svg>
+
+
+@code {
+    string data = "";
+    double a, b, c;
+    protected override void OnInitialized()
+    {
+        for (int i = 0; i < 800; i++)
+        {
+            data += $@"<circle cx=""300"" cy=""{i}"" r=""2"" fill=""skyblue""> </circle>";
+        }
+        for (int i = 0; i < 600; i++)
+        {
+            data += $@"<circle cx=""{i}"" cy=""400"" r=""2"" fill=""skyblue""> </circle>";
+        }
+    }
+
+    void Draw()
+    {
+        Parabola par = new Parabola(a, b, c);
+        Point[] pArr = par.GetPoints();
+        string[] colors = { "crimson", "deeppink", "coral", "gold", "darkkhaki", "lavender", "thistle", "magenta", "rebeccapurple", "slateblue", "limegreen", "forestgreen", "teal", "darkcyan", "turquoise", "deepskyblue", "midnightblue", "wheat", "chocolate", "charcoal" };
+        Random rnd = new Random();
+        int rColor = rnd.Next(0, colors.Length);
+        for (int i = 0; i < pArr.Length; i++)
+        {
+            data += $@"<circle cx=""{(pArr[i].GetX() + 10) * 30}"" cy=""{(-pArr[i].GetY() + 10) * 40}"" r=""1"" fill=""{colors[rColor]}"" />";
+        }
+    }
+}
